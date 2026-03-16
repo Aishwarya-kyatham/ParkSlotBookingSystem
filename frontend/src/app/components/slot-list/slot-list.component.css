@@ -1,0 +1,223 @@
+.header {
+  margin-bottom: 3rem;
+  text-align: center;
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+.header h2 {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(135deg, #fff 0%, #cbd5e1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.header p {
+  color: var(--text-muted);
+  font-size: 1.1rem;
+}
+
+.loading, .error {
+  text-align: center;
+  padding: 3rem;
+  font-size: 1.1rem;
+  background: var(--bg-card);
+  border-radius: 16px;
+  border: var(--glass-border);
+  backdrop-filter: var(--glass-blur);
+}
+
+.error {
+  color: #fca5a5;
+  border-color: rgba(244, 63, 94, 0.3);
+}
+
+/* Grid Layout */
+.slots-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+  padding: 1rem 0;
+}
+
+/* Slot Cards - Glassmorphism */
+.slot-card {
+  background: var(--bg-card);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border-radius: 20px;
+  padding: 2rem;
+  border: 1px solid var(--border-light);
+  box-shadow: var(--glass-shadow);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+/* Staggered animation */
+.slot-card:nth-child(1) { animation-delay: 0.1s; }
+.slot-card:nth-child(2) { animation-delay: 0.2s; }
+.slot-card:nth-child(3) { animation-delay: 0.3s; }
+.slot-card:nth-child(4) { animation-delay: 0.4s; }
+
+.slot-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+}
+
+.slot-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  background: var(--bg-card-hover);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+/* Status variants */
+.slot-card.available::before {
+  background: linear-gradient(90deg, var(--secondary) 0%, #34d399 100%);
+  box-shadow: 0 0 15px var(--secondary-glow);
+}
+.slot-card.available:hover {
+  box-shadow: 0 12px 40px var(--secondary-glow);
+}
+
+.slot-card.occupied::before {
+  background: linear-gradient(90deg, var(--accent) 0%, #fb7185 100%);
+  box-shadow: 0 0 15px var(--accent-glow);
+}
+.slot-card.occupied {
+  opacity: 0.75;
+}
+.slot-card.occupied:hover {
+  transform: translateY(-4px); /* subtle hover for occupied */
+  box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+}
+
+.slot-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.slot-number {
+  font-family: 'Outfit', sans-serif;
+  font-size: 3.5rem; /* Increased size */
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.booked-section-header {
+  margin-top: 5rem;
+}
+
+.slot-type {
+  font-size: 2rem;
+  background: rgba(255,255,255,0.05);
+  width: 50px; height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+
+.slot-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: auto;
+}
+
+.slot-details p:first-child {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  width: max-content;
+}
+
+.available .status-badge {
+  background: rgba(16, 185, 129, 0.15);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.occupied .status-badge {
+  background: rgba(244, 63, 94, 0.15);
+  color: #fb7185;
+  border: 1px solid rgba(244, 63, 94, 0.3);
+}
+
+/* Beautiful Buttons */
+.book-btn {
+  width: 100%;
+  margin-top: 2rem;
+  padding: 1rem;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  background: linear-gradient(135deg, var(--primary) 0%, #818cf8 100%);
+  color: white;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 15px var(--primary-glow);
+}
+
+.book-btn::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%; width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.book-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px var(--primary-glow);
+}
+
+.book-btn:hover::before {
+  left: 100%;
+}
+
+.book-btn.disabled {
+  background: rgba(255,255,255,0.05);
+  color: var(--text-muted);
+  border: 1px solid var(--border-light);
+  box-shadow: none;
+  cursor: not-allowed;
+}
+.book-btn.disabled:hover {
+  transform: none;
+}
+.book-btn.disabled::before { display: none; }
+
+.book-btn.delete-slot-btn {
+  background: linear-gradient(135deg, rgba(244, 63, 94, 0.8) 0%, rgba(225, 29, 72, 0.9) 100%);
+  box-shadow: 0 4px 15px rgba(244, 63, 94, 0.3);
+}
+
+.book-btn.delete-slot-btn:hover {
+  box-shadow: 0 8px 25px rgba(244, 63, 94, 0.4);
+}

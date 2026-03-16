@@ -1,0 +1,64 @@
+<div class="header">
+  <h2>Available Parking Slots</h2>
+  <p>Select an available slot to make a reservation</p>
+</div>
+
+<div *ngIf="loading" class="loading">Loading slots...</div>
+<div *ngIf="error" class="error">{{ error }}</div>
+
+<div *ngIf="!loading && !error">
+  <div class="slots-grid available-grid">
+    <div *ngFor="let slot of availableSlots" 
+         class="slot-card available">
+      
+      <div class="slot-header">
+        <span class="slot-number">{{ slot.slotNumber }}</span>
+        <span class="slot-type">
+          {{ slot.type === 'car' ? '🚗' : '🚲' }}
+        </span>
+      </div>
+      
+      <div class="slot-details">
+        <p>📍 {{ slot.location }}</p>
+        <p class="status-badge">{{ slot.status | titlecase }}</p>
+      </div>
+
+      <button class="book-btn" [routerLink]="['/book', slot._id]">
+        Book Now
+      </button>
+    </div>
+  </div>
+
+  <div class="header booked-section-header" *ngIf="bookedSlots.length > 0">
+    <h2>Booked Slots</h2>
+    <p>These slots are currently occupied</p>
+  </div>
+
+  <div class="slots-grid booked-grid" *ngIf="bookedSlots.length > 0">
+    <div *ngFor="let slot of bookedSlots" 
+         class="slot-card occupied">
+      
+      <div class="slot-header">
+        <span class="slot-number">{{ slot.slotNumber }}</span>
+        <span class="slot-type">
+          {{ slot.type === 'car' ? '🚗' : '🚲' }}
+        </span>
+      </div>
+      
+      <div class="slot-details">
+        <p>📍 {{ slot.location }}</p>
+        <p class="status-badge">{{ slot.status | titlecase }}</p>
+      </div>
+
+      <button class="book-btn delete-slot-btn" 
+              *ngIf="slot.activeBookingId" 
+              (click)="cancelAndFreeSlot(slot.activeBookingId)">
+        Cancel & Delete
+      </button>
+      <button class="book-btn disabled" 
+              *ngIf="!slot.activeBookingId" disabled>
+        Unavailable
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,42 @@
+<div class="header">
+  <h2>My Bookings</h2>
+  <p>Manage your parking reservations</p>
+</div>
+
+<div *ngIf="loading" class="loading">Loading your bookings...</div>
+<div *ngIf="error" class="error">{{ error }}</div>
+
+<div *ngIf="!loading && !error && bookings.length === 0" class="empty-state">
+  <p>You have no bookings yet.</p>
+  <button routerLink="/" class="primary-btn">Book a Slot</button>
+</div>
+
+<div class="bookings-list" *ngIf="!loading && !error && bookings.length > 0">
+  <div *ngFor="let booking of bookings" class="booking-card">
+    <div class="booking-header">
+      <div class="slot-info">
+        <h3>Slot {{ booking.slotId?.slotNumber || 'Unknown' }}</h3>
+        <span class="location">📍 {{ booking.slotId?.location || 'Unknown' }}</span>
+      </div>
+      <div class="status-badge" [ngClass]="booking.status">
+        {{ booking.status | titlecase }}
+      </div>
+    </div>
+    
+    <div class="booking-details">
+      <div class="detail-item">
+        <span class="label">Date</span>
+        <span class="value">{{ booking.date }}</span>
+      </div>
+      <div class="detail-item">
+        <span class="label">Time</span>
+        <span class="value">{{ booking.startTime }} - {{ booking.endTime }}</span>
+      </div>
+    </div>
+    
+    <div class="booking-actions">
+      <button *ngIf="booking.status === 'active' && !isPastBooking(booking.date, booking.endTime)" class="cancel-btn" (click)="cancelBooking(booking._id)">Cancel Booking</button>
+      <button *ngIf="booking.status === 'cancelled'" class="cancel-btn delete" (click)="deleteBooking(booking._id)">Delete Record</button>
+    </div>
+  </div>
+</div>
