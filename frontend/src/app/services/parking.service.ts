@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ParkingService {
-  private apiUrl = 'http://localhost:3000/api'; // Backend API URL
+  private apiUrl = 'https://parkslotbookingsystem.onrender.com/api'; // Backend API URL
 
   constructor(private http: HttpClient) { }
 
